@@ -40,19 +40,20 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                             dist[v2] = dist[v] + cost;
                             node_dist_Map[dist[v2]] = v2;
                             pq.emplace(v2, dist[v2]);
-                            pq.top();
                         }
                     }
                 }
             }
     }
-    std::sort_heap(dist.begin(), dist.end());
-    for (int j=1; j<=k; j++){
-        if (dist[j] < DBL_MAX){
-            Entry temp = Entry(node_dist_Map[dist[j]], dist[j]);
-            result.push_back(temp);
+    std::map<double, unsigned >::iterator i = node_dist_Map.begin();
+    for (int j=1 ; j<=k; j++){
+        if (i == node_dist_Map.end()){
+            break;
         }
-        pq.pop();
+        if (i->first < DBL_MAX){
+            result.push_back(Entry(i->second, i->first));
+        }
+        i++;
     }
     return result;
 }
