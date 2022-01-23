@@ -100,8 +100,10 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
         //Entry temp_node_2 = Entry(pq.top().weight, pq.top().column);
         //temp_node_2.weight
         //result.push_back()
-        Entry temp = Entry(node_dist_Map[dist[j+1]], dist[j+1]);
-        result.push_back(temp);
+        if (dist[j+1] < DBL_MAX){
+            Entry temp = Entry(node_dist_Map[dist[j+1]], dist[j+1]);
+            result.push_back(temp);
+        }
         //result.push_back(pq.top());
         pq.pop();
     }
