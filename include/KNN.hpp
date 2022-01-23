@@ -20,24 +20,29 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
     std::vector<Entry> result;
     result.reserve(k);
 
+    std::map<unsigned , bool> visited;
     std::priority_queue<Entry> pq;
     std::vector<double> dist(m.getRowCount(), DBL_MAX);
     std::map<double , unsigned > node_dist_Map;
     pq.emplace(start, 0);
     dist[start] = 0;
     while (!pq.empty()){
-        unsigned v = pq.top().column;
-        double d = pq.top().weight;
-        pq.pop();
-        if (d <= dist[v]){
-            for (auto &i: m.getNeighbors(v)){
-                unsigned v2 = i.column;
-                double cost = i.weight;
-                if (dist[v2] > dist[v] + cost && cost < DBL_MAX){
-                    dist[v2] = dist[v] + cost;
-                    node_dist_Map[dist[v2]] = v2;
-                    pq.emplace(v2, dist[v2]);
-                    pq.top();
+        //if (pq.top().weight != dist[pq.top().column]) continue;
+            unsigned v = pq.top().column;
+            double d = pq.top().weight;
+            pq.pop();
+            if (visited[v] != true){
+            visited[v] = true;
+            if (d <= dist[v]){
+                for (auto &i: m.getNeighbors(v)){
+                    unsigned v2 = i.column;
+                    double cost = i.weight;
+                    if (dist[v2] > dist[v] + cost && cost < DBL_MAX){
+                        dist[v2] = dist[v] + cost;
+                        node_dist_Map[dist[v2]] = v2;
+                        pq.emplace(v2, dist[v2]);
+                        pq.top();
+                    }
                 }
             }
         }
