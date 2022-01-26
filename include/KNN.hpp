@@ -36,7 +36,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                     for (auto &i: m.getNeighbors(v)){
                         unsigned v2 = i.column;
                         double cost = i.weight;
-                        if (dist[v2] > dist[v] + cost && cost < DBL_MAX){
+                        if (dist[v2] > dist[v] + cost /*&& cost < DBL_MAX*/){
                             dist[v2] = dist[v] + cost;
                             node_dist_Map[dist[v2]] = v2;
                             pq.emplace(v2, dist[v2]);
@@ -45,7 +45,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                 }
             }
     }
-    int j = 0;
+    unsigned j = 0;
     for (std::map<double, unsigned >::iterator i = node_dist_Map.begin() ; i != node_dist_Map.end(); i++){
         if (j >= k){
             break;
