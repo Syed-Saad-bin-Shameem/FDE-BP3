@@ -25,7 +25,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
     std::vector<double> dist(m.getRowCount(), DBL_MAX);
     std::map<double , unsigned > node_dist_Map;
     pq.emplace(start, 0);
-    dist[start] = 0;
+    dist[start] = 0.0;
     while (!pq.empty()){
             unsigned v = pq.top().column;
             double d = pq.top().weight;
@@ -45,12 +45,8 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                 }
             }
     }
-    //std::map<double, unsigned >::iterator i = node_dist_Map.begin();
     int j = 0;
     for (std::map<double, unsigned >::iterator i = node_dist_Map.begin() ; i != node_dist_Map.end(); i++){
-        /*if (i == node_dist_Map.end()){
-            break;
-        }*/
         if (j >= k){
             break;
         }
@@ -58,7 +54,6 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
             result.push_back(Entry(i->second, i->first));
         }
         j += 1;
-        //i++;
     }
     return result;
 }
