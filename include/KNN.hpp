@@ -45,15 +45,20 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                 }
             }
     }
-    std::map<double, unsigned >::iterator i = node_dist_Map.begin();
-    for (int j=1 ; j<=k; j++){
-        if (i == node_dist_Map.end()){
+    //std::map<double, unsigned >::iterator i = node_dist_Map.begin();
+    int j = 0;
+    for (std::map<double, unsigned >::iterator i = node_dist_Map.begin() ; i != node_dist_Map.end(); i++){
+        /*if (i == node_dist_Map.end()){
+            break;
+        }*/
+        if (j >= k){
             break;
         }
         if (i->first < DBL_MAX){
             result.push_back(Entry(i->second, i->first));
         }
-        i++;
+        j += 1;
+        //i++;
     }
     return result;
 }
