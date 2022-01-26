@@ -56,6 +56,9 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
         if (i->first < DBL_MAX){
             result.push_back(Entry(i->second, i->first));
         }
+        if (i->first == DBL_MAX){
+            break;
+        }
         j += 1;
     }
     return result;
