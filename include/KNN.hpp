@@ -5,7 +5,7 @@
 #include <map>
 #include "Matrix.hpp"
 #include "limits"
-#include "float.h"
+#include <cfloat>
 
 //---------------------------------------------------------------------------
 /// Find the top k neighbors for the node start. The directed graph is stored in
@@ -31,7 +31,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
             unsigned v = pq.top().column;
             double d = pq.top().weight;
             pq.pop();
-            if (visited[v] != true){
+            if (!visited[v]){
                 visited[v] = true;
                 if (d <= dist[v]){
                     for (auto &i: m.getNeighbors(v)){
@@ -49,16 +49,11 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
     }
     unsigned j = 0;
     //for (std::map<double, unsigned >::iterator i = node_dist_Map.begin() ; i != node_dist_Map.end(); i++){
-    for (std::multimap<double, unsigned >::iterator i = node_dist_MMap.begin() ; i != node_dist_MMap.end(); i++){
+    for (auto & i : node_dist_MMap){
         if (j >= k){
             break;
         }
-        //if (i->first < DBL_MAX){
-            result.push_back(Entry(i->second, i->first));
-        //}
-        //if (i->first == DBL_MAX){
-        //    break;
-        //}
+        result.emplace_back(i.second, i.first);
         j += 1;
     }
     return result;
