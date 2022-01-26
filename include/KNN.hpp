@@ -32,7 +32,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
             pq.pop();
             if (visited[v] != true){
                 visited[v] = true;
-                if (d <= dist[v]){
+                //if (d <= dist[v]){
                     for (auto &i: m.getNeighbors(v)){
                         unsigned v2 = i.column;
                         double cost = i.weight;
@@ -42,7 +42,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                             pq.emplace(v2, dist[v2]);
                         }
                     }
-                }
+                //}
             }
     }
     int j = 0;
