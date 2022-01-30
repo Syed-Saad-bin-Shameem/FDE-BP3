@@ -36,14 +36,14 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                 if (d <= dist[v]){
                     for (auto &i: m.getNeighbors(v)){
                         if (!visited[i.column]){
-                            visited[i.column] = true;
+                            //visited[i.column] = true;
                             unsigned v2 = i.column;
                             double cost = i.weight;
                             if (dist[v2] > dist[v] + cost){
                                 dist[v2] = dist[v] + cost;
                                 node_dist_MMap.insert(std::pair(dist[v2], v2));
                                 pq.emplace(v2, dist[v2]);
-                        }
+                            }
                         /*unsigned v2 = i.column;
                         double cost = i.weight;
                         if (dist[v2] > dist[v] + cost){
@@ -52,6 +52,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                             pq.emplace(v2, dist[v2]);*/
                         }
                     }
+                    visited[v] = true;
                 }
             //}
     }
