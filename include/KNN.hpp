@@ -53,7 +53,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
         }
         else{
             if (std::find(result.begin(), result.end(), Entry(i.second, i.first)) != result.end()){
-                continue;
+                //continue;
             }
             else{
                 result.emplace_back(i.second, i.first);
