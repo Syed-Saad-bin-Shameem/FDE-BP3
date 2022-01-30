@@ -61,7 +61,7 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
         if (j >= k){
             break;
         }
-        else{
+        /*else{
             if (std::find(result.begin(), result.end(), Entry(i.second, i.first)) != result.end()){
                 continue;
             }
@@ -69,9 +69,9 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                 result.emplace_back(i.second, i.first);
                 j += 1;
             }
-        }
-        //result.emplace_back(i.second, i.first);
-        //j += 1;
+        }*/
+        result.emplace_back(i.second, i.first);
+        j += 1;
     }
     return result;
 }
