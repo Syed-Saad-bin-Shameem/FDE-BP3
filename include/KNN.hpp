@@ -31,9 +31,9 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
             unsigned v = pq.top().column;
             double d = pq.top().weight;
             pq.pop();
-            //if (!visited[v]){
+            if (!visited[v]){
                 //visited[v] = true;
-                if (d <= dist[v]){
+                //if (d <= dist[v]){
                     for (auto &i: m.getNeighbors(v)){
                         if (!visited[i.column]){
                             //visited[i.column] = true;
@@ -53,8 +53,8 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
                         }
                     }
                     visited[v] = true;
-                }
-            //}
+                //}
+            }
     }
     unsigned j = 0;
     for (auto & i : node_dist_MMap){
