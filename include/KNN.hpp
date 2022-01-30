@@ -6,6 +6,7 @@
 #include "Matrix.hpp"
 #include "limits"
 #include <cfloat>
+#include "algorithm"
 
 //---------------------------------------------------------------------------
 /// Find the top k neighbors for the node start. The directed graph is stored in
@@ -50,8 +51,17 @@ std::vector<Matrix::Entry> getKNN(const Matrix &m, unsigned start, unsigned k) {
         if (j >= k){
             break;
         }
-        result.emplace_back(i.second, i.first);
-        j += 1;
+        else{
+            if (std::find(result.begin(), result.end(), Entry(i.second, i.first)) != result.end()){
+                continue;
+            }
+            else{
+                result.emplace_back(i.second, i.first);
+                j += 1;
+            }
+        }
+        //result.emplace_back(i.second, i.first);
+        //j += 1;
     }
     return result;
 }
